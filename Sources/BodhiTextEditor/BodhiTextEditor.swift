@@ -20,6 +20,23 @@ public struct BodhiTextEditor: View {
     @State private var bgColor                      = Color(.sRGB, red: 1, green: 1, blue: 1)
     @State private var isLinkPopUpPresented: Bool   = false
 
+    public init(height: CGFloat,
+                width: CGFloat,
+                range: NSRange? = nil,
+                attribText: Binding<NSAttributedString>, // Use Binding here
+                link: String,
+                bgColor: SwiftUI.Color = Color(.sRGB, red: 1, green: 1, blue: 1),
+                isLinkPopUpPresented: Bool)
+    {
+        self._height = State(initialValue: height) // Use _propertyName for State properties
+        self._width = State(initialValue: width)   // Use _propertyName for State properties
+        self._range = State(initialValue: range)   // Use _propertyName for State properties
+        self._attribText = attribText              // Directly assign Binding property
+        self._link = State(initialValue: link)     // Use _propertyName for State properties
+        self._bgColor = State(initialValue: bgColor) // Use _propertyName for State properties
+        self._isLinkPopUpPresented = State(initialValue: isLinkPopUpPresented) // Use _propertyName for State properties
+    }
+
     
     public var body: some View {
 
