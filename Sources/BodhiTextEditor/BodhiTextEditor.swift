@@ -104,7 +104,7 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
     public func makeNSView(context: Context) -> NSScrollView {
         let textView                        = NSTextView()
         textView.delegate                   = context.coordinator
-        textView.backgroundColor            = .white
+        textView.backgroundColor            = .red
         textView.textContainerInset         = NSSize(width: padding, height: padding)
         textView.isVerticallyResizable      = true  // this should be true for scrolling
         textView.isHorizontallyResizable    = true
@@ -122,7 +122,7 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
         scrollView.allowsMagnification      = true
         scrollView.magnification            = 1.25
         scrollView.documentView             = textView
-        scrollView.backgroundColor          = .white
+        scrollView.backgroundColor          = .green
         scrollView.setFrameSize(NSSize(width: 0, height: 0))
         return scrollView
     }
