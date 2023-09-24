@@ -49,7 +49,7 @@ public struct BodhiTextEditor: View {
                 
             ZStack(alignment: .topLeading) {
                 InternalCustomTextEditor(text: $attribText, rangeSelected: $range, height: $height, width: $width, isDisabled: $isDisabled)
-                    .frame(maxWidth: width, maxHeight: height)
+                    //.frame(maxWidth: width, maxHeight: height)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
