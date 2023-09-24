@@ -137,7 +137,7 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
             DispatchQueue.main.async {
                 print("dispatch queue updateNSView")
                 textView.textStorage?.setAttributedString(text)
-                
+                print(textView.textStorage?.string)
                 //the following ensures the selection remains after modifying the selected text
                 guard let selecteRange = self.rangeSelected else { return }
                 textView.setSelectedRange(selecteRange)
