@@ -123,7 +123,7 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
         scrollView.magnification            = 1.25
         scrollView.documentView             = textView
         scrollView.backgroundColor          = .green
-        scrollView.setFrameSize(NSSize(width: 0, height: 0))
+        //scrollView.setFrameSize(NSSize(width: 0, height: 0))
         return scrollView
     }
     
