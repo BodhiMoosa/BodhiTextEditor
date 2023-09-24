@@ -105,7 +105,7 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
         let textView                        = NSTextView()
         textView.delegate                   = context.coordinator
         textView.backgroundColor            = .white
-        textView.textContainerInset         = NSSize(width: padding, height: padding)
+        //textView.textContainerInset         = NSSize(width: padding, height: padding)
         textView.isVerticallyResizable      = true  // this should be true for scrolling
         textView.isHorizontallyResizable    = true
         textView.autoresizingMask           = [.width, .height]
