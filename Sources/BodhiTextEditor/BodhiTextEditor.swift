@@ -49,7 +49,7 @@ public struct BodhiTextEditor: View {
                 
             ZStack(alignment: .topLeading) {
                 InternalCustomTextEditor(text: $attribText, rangeSelected: $range, height: $height, width: $width, isDisabled: $isDisabled)
-                    .frame(width: width, height: height)
+                    .frame(maxWidth: width, maxHeight: height)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
@@ -110,7 +110,7 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
         textView.isHorizontallyResizable    = true
         textView.autoresizingMask           = [.width, .height]
         textView.textContainer?.size        = NSSize(width: 0, height: 0)
-        textView.textColor                  = .black
+        textView.textColor                  = .white
 
         NotificationCenter.default.addObserver(context.coordinator, selector: #selector(Coordinator.textDidChange(_:)), name: NSText.didChangeNotification, object: textView)
         
@@ -122,7 +122,7 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
         scrollView.allowsMagnification      = true
         scrollView.magnification            = 1
         scrollView.documentView             = textView
-        scrollView.backgroundColor          = .green
+        scrollView.backgroundColor          = .white
         //scrollView.setFrameSize(NSSize(width: 0, height: 0))
         return scrollView
     }
