@@ -109,7 +109,7 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
         textView.isVerticallyResizable      = true  // this should be true for scrolling
         textView.isHorizontallyResizable    = true
         textView.autoresizingMask           = [.width, .height]
-        textView.textContainer?.containerSize = NSSize(width: width, height: height)
+        textView.textContainer?.size        = NSSize(width: 0, height: 0)
         textView.textColor                  = .black
 
         NotificationCenter.default.addObserver(context.coordinator, selector: #selector(Coordinator.textDidChange(_:)), name: NSText.didChangeNotification, object: textView)
