@@ -110,7 +110,7 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
         textView.autoresizingMask           = [.width, .height]
         textView.textContainer?.size        = NSSize(width: 0, height: 0)
         textView.textColor                  = .black
-        textView.selectedTextAttributes = [        .backgroundColor: NSColor.white.withAlphaComponent(0.3),
+        textView.selectedTextAttributes = [        .backgroundColor: NSColor.black.withAlphaComponent(0.2),
                                                    .foregroundColor: NSColor.black
         ]
 
