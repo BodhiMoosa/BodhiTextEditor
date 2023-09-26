@@ -76,7 +76,7 @@ public struct BodhiTextEditor: View {
                 TextSizeView(attribText: $attribText, range: $range)
                 ColorPicker("Font Color", selection: $bgColor)
             }
-            .frame(idealWidth: width)
+            .frame(width: width)
             Spacer()
         }
         .sheet(isPresented: $isLinkPopUpPresented) {
@@ -110,6 +110,9 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
         textView.autoresizingMask           = [.width, .height]
         textView.textContainer?.size        = NSSize(width: 0, height: 0)
         textView.textColor                  = .black
+        textView.selectedTextAttributes = [        .backgroundColor: NSColor.white.withAlphaComponent(0.3),
+                                                   .foregroundColor: NSColor.black
+        ]
 
         NotificationCenter.default.addObserver(context.coordinator, selector: #selector(Coordinator.textDidChange(_:)), name: NSText.didChangeNotification, object: textView)
         
@@ -174,6 +177,10 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
                 self.range.wrappedValue = rangeToPassBack
             }
         }
+        
+//        public func textView(_ textView: NSTextView, clickedOnLink link: Any, at charIndex: Int) -> Bool {
+//            <#code#>
+//        }
     }
 }
 
