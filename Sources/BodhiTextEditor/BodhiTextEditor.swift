@@ -131,27 +131,29 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
     
     
     public func updateNSView(_ nsView: NSScrollView, context: Context) {
-        print("updating NS VIEW!")
+        print("UPDATING NS VIEW STARTS!")
         guard let textView      = nsView.documentView as? NSTextView else { return }
         textView.isEditable     = isDisabled
         textView.isSelectable   = isDisabled
         if textView.textStorage != text {
-            print("udpateing NS VIEW text != textStorage")
-            print("textStorage: \(textView.textStorage?.string)")
+            print("UPDATING NS VIEW: text != textStorage")
+            print("UPDATING NS VIEW: textStorage: \(textView.textStorage?.string)")
             print("text: \(text.string)")
             DispatchQueue.main.async {
-                print("dispatch queue updateNSView")
+                print("UPDATING NS VIEW: dispatch queue updateNSView")
                 textView.textStorage?.setAttributedString(text)
-                print(textView.textStorage?.string)
+                print("UPDATING NS VIEW: \(textView.textStorage?.string)")
                 //the following ensures the selection remains after modifying the selected text
                 guard let selecteRange = self.rangeSelected else { return }
-                print("updating NS View is setting the selected range to \(selecteRange)")
+                print("UPDATING NS VIEW: is setting the selected range to \(selecteRange)")
                 textView.setSelectedRange(selecteRange)
+                print("UPDATING NS VIEW: dispatch queue ENDS")
             }
         } else {
-            print("text and textstorage are the same")
+            print("UPDATING NS VIEW: text and textstorage are the same")
             print(textView.textStorage?.string)
             print(text.string)
+            print("UPDATING NS VIEW: ENDS (text and textStorage are the same")
         }
     }
     
@@ -169,16 +171,19 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
         
         @objc public func textDidChange(_ notification: Notification) {
             guard let textView = notification.object as? NSTextView else { return }
+            print("TEXT DID CHANGE: START")
             if textView.textStorage != text.wrappedValue {
                 DispatchQueue.main.async {
-                    print("dispatch queue textDidChange")
+                    print("TEXT DID CHANGE: dispatch queue textDidChange")
                     self.text.wrappedValue = textView.textStorage!
                     print(textView.textStorage)
+                    print("TEXT DID CHANGE dispatch queue ENDS")
                 }
             } else {
-                print("text did change same text")
-                print(textView.textStorage?.string)
-                print(self.text)
+                print("TEXT DID CHANGE:  text did change same text")
+                print("TEXT DID CHANGE: textStorage \(textView.textStorage?.string)")
+                print("TEXT DID CHANGE: text \(self.text)")
+                print("TEXT DID CHANGE: ends (text and textStorage the same")
             }
             
         }
@@ -186,10 +191,12 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
         public func textViewDidChangeSelection(_ notification: Notification) {
             guard let textView = notification.object as? NSTextView else { return }
             let rangeToPassBack: NSRange = textView.selectedRange
+            print("TEXT VIEW DID CHANGE: STARTS WITH RANGE: \(rangeToPassBack)")
             DispatchQueue.main.async {
-                print("dispatch queue textViewDidChangeSelection")
+                print("TEXT VIEW DID CHANGE SELECTION dispatch queue")
                 self.range.wrappedValue = rangeToPassBack
-                print("range to pass back is \(rangeToPassBack)")
+                print("TEXT VIEW DID CHANGE SELECTION range to pass back is \(rangeToPassBack)")
+                print("TEXT VIEW DID CHANGE: ENDS dispatch queue")
             }
         }
     }
