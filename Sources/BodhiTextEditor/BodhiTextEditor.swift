@@ -14,7 +14,7 @@ public struct BodhiTextEditor: View {
     let padding: CGFloat                            = 10
     @State var height                               : CGFloat
     @State var width                                : CGFloat
-    @State var range : NSRange?                     = nil
+    @Binding var range                              : NSRange?
     @Binding var attribText                         : NSAttributedString
     @State var link: String                         = ""
     @State private var bgColor                      = Color(.sRGB, red: 1, green: 1, blue: 1)
@@ -23,21 +23,21 @@ public struct BodhiTextEditor: View {
 
     public init(height: CGFloat,
                 width: CGFloat,
-                range: NSRange? = nil,
+                range: Binding<NSRange?>,
                 attribText: Binding<NSAttributedString>, // Use Binding here
                 link: String,
                 bgColor: SwiftUI.Color = Color(.sRGB, red: 1, green: 1, blue: 1),
                 isLinkPopUpPresented: Bool,
                 isDisabled: Binding<Bool>)
     {
-        self._height = State(initialValue: height) // Use _propertyName for State properties
-        self._width = State(initialValue: width)   // Use _propertyName for State properties
-        self._range = State(initialValue: range)   // Use _propertyName for State properties
-        self._attribText = attribText              // Directly assign Binding property
-        self._link = State(initialValue: link)     // Use _propertyName for State properties
-        self._bgColor = State(initialValue: bgColor) // Use _propertyName for State properties
-        self._isLinkPopUpPresented = State(initialValue: isLinkPopUpPresented) // Use _propertyName for State properties
-        self._isDisabled = isDisabled
+        self._height                = State(initialValue: height) // Use _propertyName for State properties
+        self._width                 = State(initialValue: width)   // Use _propertyName for State properties
+        self._range                 = range   // Use _propertyName for State properties
+        self._attribText            = attribText              // Directly assign Binding property
+        self._link                  = State(initialValue: link)     // Use _propertyName for State properties
+        self._bgColor               = State(initialValue: bgColor) // Use _propertyName for State properties
+        self._isLinkPopUpPresented  = State(initialValue: isLinkPopUpPresented) // Use _propertyName for State properties
+        self._isDisabled            = isDisabled
     }
 
     
