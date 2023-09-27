@@ -136,6 +136,9 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
         textView.isEditable     = isDisabled
         textView.isSelectable   = isDisabled
         if textView.textStorage != text {
+            print("udpateing NS VIEW text != textStorage")
+            print("textStorage: \(textView.textStorage?.string)")
+            print("text: \(text.string)")
             DispatchQueue.main.async {
                 print("dispatch queue updateNSView")
                 textView.textStorage?.setAttributedString(text)
@@ -145,6 +148,8 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
                 print("updating NS View is setting the selected range to \(selecteRange)")
                 textView.setSelectedRange(selecteRange)
             }
+        } else {
+            print("text and textstorage are the same")
         }
     }
     
@@ -168,7 +173,12 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
                     self.text.wrappedValue = textView.textStorage!
                     print(textView.textStorage)
                 }
+            } else {
+                print("text did change same text")
+                print(textView.textStorage?.string)
+                print(self.text)
             }
+            
         }
         
         public func textViewDidChangeSelection(_ notification: Notification) {
