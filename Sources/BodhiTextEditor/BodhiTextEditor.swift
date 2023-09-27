@@ -136,24 +136,12 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
         textView.isEditable     = isDisabled
         textView.isSelectable   = isDisabled
         if textView.textStorage != text {
-            print("UPDATING NS VIEW: text != textStorage")
-            print("UPDATING NS VIEW: textStorage: \(textView.textStorage?.string)")
-            print("text: \(text.string)")
             DispatchQueue.main.async {
-                print("UPDATING NS VIEW: dispatch queue updateNSView")
                 textView.textStorage?.setAttributedString(text)
-                print("UPDATING NS VIEW: \(textView.textStorage?.string)")
                 //the following ensures the selection remains after modifying the selected text
                 guard let selecteRange = self.rangeSelected else { return }
-                print("UPDATING NS VIEW: is setting the selected range to \(selecteRange)")
                 textView.setSelectedRange(selecteRange)
-                print("UPDATING NS VIEW: dispatch queue ENDS")
             }
-        } else {
-            print("UPDATING NS VIEW: text and textstorage are the same")
-            print(textView.textStorage?.string)
-            print(text.string)
-            print("UPDATING NS VIEW: ENDS (text and textStorage are the same")
         }
     }
     
@@ -171,33 +159,18 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
         
         @objc public func textDidChange(_ notification: Notification) {
             guard let textView = notification.object as? NSTextView else { return }
-            print("TEXT DID CHANGE: START")
             if textView.textStorage != text.wrappedValue {
                 DispatchQueue.main.async {
-                    print("TEXT DID CHANGE: dispatch queue textDidChange")
                     self.text.wrappedValue = textView.textStorage!
-                    print(textView.textStorage)
-                    print("TEXT DID CHANGE dispatch queue ENDS")
                 }
-            } else {
-                print("TEXT DID CHANGE:  text did change same text")
-                print("TEXT DID CHANGE: textStorage \(textView.textStorage?.string)")
-                print("TEXT DID CHANGE: text \(self.text)")
-                print("TEXT DID CHANGE: ends (text and textStorage the same")
             }
-            
         }
         
         public func textViewDidChangeSelection(_ notification: Notification) {
             guard let textView = notification.object as? NSTextView else { return }
-
             DispatchQueue.main.async {
                 let rangeToPassBack: NSRange = textView.selectedRange
-                print("TEXT VIEW DID CHANGE: STARTS WITH RANGE: \(rangeToPassBack)")
-                print("TEXT VIEW DID CHANGE SELECTION dispatch queue")
                 self.range.wrappedValue = rangeToPassBack
-                print("TEXT VIEW DID CHANGE SELECTION range to pass back is \(rangeToPassBack)")
-                print("TEXT VIEW DID CHANGE: ENDS dispatch queue")
             }
         }
     }
