@@ -190,9 +190,10 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
         
         public func textViewDidChangeSelection(_ notification: Notification) {
             guard let textView = notification.object as? NSTextView else { return }
-            let rangeToPassBack: NSRange = textView.selectedRange
-            print("TEXT VIEW DID CHANGE: STARTS WITH RANGE: \(rangeToPassBack)")
+
             DispatchQueue.main.async {
+                let rangeToPassBack: NSRange = textView.selectedRange
+                print("TEXT VIEW DID CHANGE: STARTS WITH RANGE: \(rangeToPassBack)")
                 print("TEXT VIEW DID CHANGE SELECTION dispatch queue")
                 self.range.wrappedValue = rangeToPassBack
                 print("TEXT VIEW DID CHANGE SELECTION range to pass back is \(rangeToPassBack)")
