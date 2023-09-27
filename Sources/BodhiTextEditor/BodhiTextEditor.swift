@@ -142,6 +142,7 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
                 print(textView.textStorage?.string)
                 //the following ensures the selection remains after modifying the selected text
                 guard let selecteRange = self.rangeSelected else { return }
+                print("updating NS View is setting the selected range to \(selecteRange)")
                 textView.setSelectedRange(selecteRange)
             }
         }
@@ -176,13 +177,9 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
             DispatchQueue.main.async {
                 print("dispatch queue textViewDidChangeSelection")
                 self.range.wrappedValue = rangeToPassBack
-                print(rangeToPassBack)
+                print("range to pass back is \(rangeToPassBack)")
             }
         }
-        
-//        public func textView(_ textView: NSTextView, clickedOnLink link: Any, at charIndex: Int) -> Bool {
-//            <#code#>
-//        }
     }
 }
 
