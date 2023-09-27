@@ -150,6 +150,8 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
             }
         } else {
             print("text and textstorage are the same")
+            print(textView.textStorage?.string)
+            print(text.string)
         }
     }
     
