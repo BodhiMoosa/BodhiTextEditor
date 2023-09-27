@@ -165,6 +165,7 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
                 DispatchQueue.main.async {
                     print("dispatch queue textDidChange")
                     self.text.wrappedValue = textView.textStorage!
+                    print(textView.textStorage)
                 }
             }
         }
@@ -175,6 +176,7 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
             DispatchQueue.main.async {
                 print("dispatch queue textViewDidChangeSelection")
                 self.range.wrappedValue = rangeToPassBack
+                print(rangeToPassBack)
             }
         }
         
