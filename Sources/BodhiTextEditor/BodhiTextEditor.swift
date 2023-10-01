@@ -18,7 +18,7 @@ public struct BodhiTextEditor: View {
     @Binding var attribText                         : NSAttributedString
     @State var link: String                         = ""
     @State private var bgColor                      = Color(.sRGB, red: 1, green: 1, blue: 1)
-    @Binding var isDisabled                         : Bool
+    @Binding var isEditing                          : Bool
     @State private var isLinkPopUpPresented: Bool   = false
 
     public init(height: CGFloat,
@@ -28,7 +28,7 @@ public struct BodhiTextEditor: View {
                 link: String,
                 bgColor: SwiftUI.Color = Color(.sRGB, red: 1, green: 1, blue: 1),
                 isLinkPopUpPresented: Bool,
-                isDisabled: Binding<Bool>)
+                isEditing: Binding<Bool>)
     {
         self._height                = State(initialValue: height) // Use _propertyName for State properties
         self._width                 = State(initialValue: width)   // Use _propertyName for State properties
@@ -37,7 +37,7 @@ public struct BodhiTextEditor: View {
         self._link                  = State(initialValue: link)     // Use _propertyName for State properties
         self._bgColor               = State(initialValue: bgColor) // Use _propertyName for State properties
         self._isLinkPopUpPresented  = State(initialValue: isLinkPopUpPresented) // Use _propertyName for State properties
-        self._isDisabled            = isDisabled
+        self._isEditing            = isEditing
     }
 
     
@@ -45,7 +45,7 @@ public struct BodhiTextEditor: View {
 
         VStack {
             ZStack(alignment: .topLeading) {
-                InternalCustomTextEditor(text: $attribText, rangeSelected: $range, height: $height, width: $width, isDisabled: $isDisabled)
+                InternalCustomTextEditor(text: $attribText, rangeSelected: $range, height: $height, width: $width, isDisabled: $isEditing)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
@@ -53,7 +53,7 @@ public struct BodhiTextEditor: View {
                             .padding(.all, padding)
                     )
             }
-            if !isDisabled {
+            if isEditing {
                 HStack {
                     CustomButtonView(buttonText: "bold", attribText: $attribText, range: $range, fontMask: .boldFontMask, isUnderline: false)
                     CustomButtonView(buttonText: "italic", attribText: $attribText, range: $range, fontMask: .italicFontMask, isUnderline: false)
@@ -131,7 +131,6 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
     
     
     public func updateNSView(_ nsView: NSScrollView, context: Context) {
-        print("UPDATING NS VIEW STARTS!")
         guard let textView      = nsView.documentView as? NSTextView else { return }
         textView.isEditable     = isDisabled
         textView.isSelectable   = isDisabled
