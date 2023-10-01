@@ -44,9 +44,6 @@ public struct BodhiTextEditor: View {
     public var body: some View {
 
         VStack {
-            Text("Expansion Text")
-                .font(.system(size: 16))
-                
             ZStack(alignment: .topLeading) {
                 InternalCustomTextEditor(text: $attribText, rangeSelected: $range, height: $height, width: $width, isDisabled: $isDisabled)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -56,27 +53,30 @@ public struct BodhiTextEditor: View {
                             .padding(.all, padding)
                     )
             }
-            HStack {
-                CustomButtonView(buttonText: "bold", attribText: $attribText, range: $range, fontMask: .boldFontMask, isUnderline: false)
-                CustomButtonView(buttonText: "italic", attribText: $attribText, range: $range, fontMask: .italicFontMask, isUnderline: false)
-                CustomButtonView(buttonText: "underline", attribText: $attribText, range: $range, isUnderline: true)
-                Button {
-                    self.isLinkPopUpPresented.toggle()
-                } label: {
-                    Text("Link")
-                        .frame(width: 50, height: 25)
-                        .background(Color.secondary.opacity(0.3))
-                        .clipShape(RoundedRectangle(cornerRadius: 5))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 5)
-                                .stroke( Color.primary.opacity(0.1), lineWidth: 2)
-                        )
+            if !isDisabled {
+                HStack {
+                    CustomButtonView(buttonText: "bold", attribText: $attribText, range: $range, fontMask: .boldFontMask, isUnderline: false)
+                    CustomButtonView(buttonText: "italic", attribText: $attribText, range: $range, fontMask: .italicFontMask, isUnderline: false)
+                    CustomButtonView(buttonText: "underline", attribText: $attribText, range: $range, isUnderline: true)
+                    Button {
+                        self.isLinkPopUpPresented.toggle()
+                    } label: {
+                        Text("Link")
+                            .frame(width: 50, height: 25)
+                            .background(Color.secondary.opacity(0.3))
+                            .clipShape(RoundedRectangle(cornerRadius: 5))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 5)
+                                    .stroke( Color.primary.opacity(0.1), lineWidth: 2)
+                            )
+                    }
+                    .buttonStyle(.plain)
+                    TextSizeView(attribText: $attribText, range: $range)
+                    ColorPicker("Font Color", selection: $bgColor)
                 }
-                .buttonStyle(.plain)
-                TextSizeView(attribText: $attribText, range: $range)
-                ColorPicker("Font Color", selection: $bgColor)
+                .frame(width: width)
             }
-            .frame(width: width)
+
             Spacer()
         }
         .sheet(isPresented: $isLinkPopUpPresented) {

@@ -43,11 +43,8 @@ public struct CustomButtonView: View {
         var attributes = attribText.attributes(at: range.location, effectiveRange: nil)
         
         guard let currentFont : NSFont = attributes[.font] as? NSFont else {
-            print(attributes[.font])
-            print("toggleFont function: cant find font")
             return attribText
         }
-        print(attributes[.font])
         let fontManager = NSFontManager.shared
         var newTraits: NSFontTraitMask = fontManager.traits(of: currentFont)
         
