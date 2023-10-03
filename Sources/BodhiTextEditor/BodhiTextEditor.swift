@@ -80,7 +80,7 @@ public struct BodhiTextEditor: View {
             Spacer()
         }
         .sheet(isPresented: $isLinkPopUpPresented) {
-            LinkPopUpView(textToLInk: "Text to link", isShown: self.$isLinkPopUpPresented, currentLink: $link, newLink: link, attribText: $attribText, range: $range)
+            LinkPopUpView(textToLInk: attribText.substring(with: range) ?? "", isShown: self.$isLinkPopUpPresented, currentLink: $link, newLink: link, attribText: $attribText, range: $range)
                 .frame(idealWidth: 500)
         }
         
