@@ -19,7 +19,7 @@ public struct LinkPopUpView: View {
     
     public var body: some View {
         ZStack {
-            Color.gray
+            Color(.sRGB, red: 0/255, green: 76/255, blue: 153/255, opacity: 1)
             VStack(spacing: 9) {
                 Text("Selected Text: \(textToLInk)")
                 if currentLink != "" {
