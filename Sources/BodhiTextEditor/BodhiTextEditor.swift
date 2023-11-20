@@ -37,10 +37,11 @@ public struct BodhiTextEditor: View {
         self._link                  = State(initialValue: link)     // Use _propertyName for State properties
         self._bgColor               = State(initialValue: bgColor) // Use _propertyName for State properties
         self._isLinkPopUpPresented  = State(initialValue: isLinkPopUpPresented) // Use _propertyName for State properties
-        self._isEditing            = isEditing
+        self._isEditing             = isEditing
     }
 
     
+  
     public var body: some View {
 
         VStack {
@@ -78,6 +79,12 @@ public struct BodhiTextEditor: View {
             }
 
             Spacer()
+        }
+        .onChange(of: isEditing) { newValue in
+            if !isEditing {
+                print("Changing value to \(newValue)")
+                range = nil
+            }
         }
         .sheet(isPresented: $isLinkPopUpPresented) {
             LinkPopUpView(textToLInk: attribText.substring(with: range) ?? "", isShown: self.$isLinkPopUpPresented, currentLink: $link, newLink: link, attribText: $attribText, range: $range)
