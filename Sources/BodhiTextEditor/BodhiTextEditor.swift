@@ -54,6 +54,14 @@ public struct BodhiTextEditor: View {
                             .padding(.all, padding)
                     )
             }
+            .onChange(of: isEditing) { newValue in
+                if !isEditing {
+                    print("Changing value to \(newValue)")
+                    range = nil
+                } else {
+                    print("Changing value to \(newValue)")
+                }
+            }
             if isEditing {
                 HStack {
                     CustomButtonView(buttonText: "bold", attribText: $attribText, range: $range, fontMask: .boldFontMask, isUnderline: false)
@@ -80,12 +88,7 @@ public struct BodhiTextEditor: View {
 
             Spacer()
         }
-        .onChange(of: isEditing) { newValue in
-            if !isEditing {
-                print("Changing value to \(newValue)")
-                range = nil
-            }
-        }
+
         .sheet(isPresented: $isLinkPopUpPresented) {
             LinkPopUpView(textToLInk: attribText.substring(with: range) ?? "", isShown: self.$isLinkPopUpPresented, currentLink: $link, newLink: link, attribText: $attribText, range: $range)
                 .frame(idealWidth: 500)
