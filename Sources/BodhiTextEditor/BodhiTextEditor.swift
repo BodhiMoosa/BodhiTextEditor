@@ -106,7 +106,7 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
     
     
     public func makeNSView(context: Context) -> NSScrollView {
-        let textView                                = NSTextView()
+        let textView                                = CustomTextView()
         textView.delegate                           = context.coordinator
         textView.backgroundColor                    = .white
         textView.textContainerInset                 = NSSize(width: padding, height: padding)
@@ -136,6 +136,7 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
         //scrollView.setFrameSize(NSSize(width: 0, height: 0))
         return scrollView
     }
+    
     
     
     public func updateNSView(_ nsView: NSScrollView, context: Context) {
@@ -285,3 +286,21 @@ public func checkAllAttributesWithinRange(range: NSRange?, text: NSAttributedStr
 
 
 
+class CustomTextView: NSTextView {
+
+    override func becomeFirstResponder() -> Bool {
+        let becomingFirstResponder = super.becomeFirstResponder()
+        if becomingFirstResponder {
+            print("CustomTextView is now the first responder.")
+        }
+        return becomingFirstResponder
+    }
+
+    override func resignFirstResponder() -> Bool {
+        let resigningFirstResponder = super.resignFirstResponder()
+        if resigningFirstResponder {
+            print("CustomTextView has resigned as the first responder.")
+        }
+        return resigningFirstResponder
+    }
+}
