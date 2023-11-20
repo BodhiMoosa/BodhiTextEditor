@@ -106,17 +106,19 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
     
     
     public func makeNSView(context: Context) -> NSScrollView {
-        let textView                        = NSTextView()
-        textView.delegate                   = context.coordinator
-        textView.backgroundColor            = .white
-        textView.textContainerInset         = NSSize(width: padding, height: padding)
-        textView.isVerticallyResizable      = true  // this should be true for scrolling
-        textView.isHorizontallyResizable    = true
-        textView.autoresizingMask           = [.width, .height]
-        textView.textContainer?.size        = NSSize(width: 0, height: 0)
-        textView.textColor                  = .black
-        textView.selectedTextAttributes = [        .backgroundColor: NSColor.black.withAlphaComponent(0.2),
-                                                   .foregroundColor: NSColor.black
+        let textView                                = NSTextView()
+        textView.delegate                           = context.coordinator
+        textView.backgroundColor                    = .white
+        textView.textContainerInset                 = NSSize(width: padding, height: padding)
+        textView.isVerticallyResizable              = true  // this should be true for scrolling
+        textView.isHorizontallyResizable            = true
+        textView.autoresizingMask                   = [.width, .height]
+        textView.textContainer?.size                = NSSize(width: 0, height: 0)
+        textView.textColor                          = .black
+        textView.isContinuousSpellCheckingEnabled   = true
+        textView.isGrammarCheckingEnabled           = true
+        textView.selectedTextAttributes             = [        .backgroundColor: NSColor.black.withAlphaComponent(0.2),
+                                                               .foregroundColor: NSColor.black
         ]
 
         NotificationCenter.default.addObserver(context.coordinator, selector: #selector(Coordinator.textDidChange(_:)), name: NSText.didChangeNotification, object: textView)
