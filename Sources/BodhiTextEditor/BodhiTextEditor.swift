@@ -126,6 +126,8 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
             } else {
                 print("UNDO MANAGER FOUND")
             }
+        } else {
+            print("NO WINDOW")
         }
 
         NotificationCenter.default.addObserver(context.coordinator, selector: #selector(Coordinator.textDidChange(_:)), name: NSText.didChangeNotification, object: textView)
