@@ -55,12 +55,7 @@ public struct BodhiTextEditor: View {
                     )
             }
             .onChange(of: isEditing) { newValue in
-                if !isEditing {
-                    print("Changing value to \(newValue)")
-                    range = nil
-                } else {
-                    print("Changing value to \(newValue)")
-                }
+                if !isEditing { range = NSRange(location: attribText.length, length: 0) }
             }
             if isEditing {
                 HStack {
