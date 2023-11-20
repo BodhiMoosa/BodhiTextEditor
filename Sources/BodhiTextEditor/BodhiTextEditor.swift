@@ -120,6 +120,13 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
         textView.selectedTextAttributes             = [        .backgroundColor: NSColor.black.withAlphaComponent(0.2),
                                                                .foregroundColor: NSColor.black
         ]
+        if let window = textView.window {
+            if window.undoManager == nil {
+                print("NO UNDO MANAGER")
+            } else {
+                print("UNDO MANAGER FOUND")
+            }
+        }
 
         NotificationCenter.default.addObserver(context.coordinator, selector: #selector(Coordinator.textDidChange(_:)), name: NSText.didChangeNotification, object: textView)
         
