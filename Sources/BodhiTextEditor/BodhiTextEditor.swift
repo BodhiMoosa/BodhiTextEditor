@@ -60,8 +60,12 @@ public struct BodhiTextEditor: View {
             if isEditing {
                 HStack {
                     CustomButtonView(buttonText: "bold", attribText: $attribText, range: $range, fontMask: .boldFontMask, isUnderline: false)
+                        .keyboardShortcut("b", modifiers: [.command])
                     CustomButtonView(buttonText: "italic", attribText: $attribText, range: $range, fontMask: .italicFontMask, isUnderline: false)
+                        .keyboardShortcut("i", modifiers: [.command])
                     CustomButtonView(buttonText: "underline", attribText: $attribText, range: $range, isUnderline: true)
+                        .keyboardShortcut("u", modifiers: [.command])
+
                     Button {
                         self.isLinkPopUpPresented.toggle()
                     } label: {
@@ -117,6 +121,7 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
         textView.textColor                          = .black
         textView.isContinuousSpellCheckingEnabled   = true
         textView.isGrammarCheckingEnabled           = true
+        textView.isAutomaticTextReplacementEnabled  = false
         textView.selectedTextAttributes             = [        .backgroundColor: NSColor.black.withAlphaComponent(0.2),
                                                                .foregroundColor: NSColor.black
         ]
