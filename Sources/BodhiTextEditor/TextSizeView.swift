@@ -26,10 +26,7 @@ public struct TextSizeView: View {
                 }
             }
             .onChange(of: range) { newRange in
-                guard let range = range else {
-                    print("no range")
-                    return }
-                print(range)
+                guard let range = range else { return }
                 increment = returnCurrentFontSize(attribText: attribText, range: range)
             }
             

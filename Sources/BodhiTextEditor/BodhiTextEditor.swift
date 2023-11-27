@@ -156,16 +156,6 @@ public struct InternalCustomTextEditor: NSViewRepresentable {
                 textView.setSelectedRange(selecteRange)
             }
         }
-        
-        if let window = textView.window {
-             if window.undoManager == nil {
-                 print("NO UNDO MANAGER")
-             } else {
-                 print("UNDO MANAGER FOUND")
-             }
-         } else {
-             print("NO WINDOW")
-         }
     }
     
   
@@ -250,24 +240,23 @@ public func checkFontSize(attribText: NSAttributedString, range: NSRange) -> CGF
 
 
 
-public func copyAttributedStringToPB(attribString: NSAttributedString) {
-    
-    do {
-        let documentAttributes = [NSAttributedString.DocumentAttributeKey.documentType: NSAttributedString.DocumentType.rtf]
-        let rtfData = try attribString.data(from: NSMakeRange(0, attribString.length), documentAttributes: documentAttributes)
-        let pb = NSPasteboard.general
-        pb.setData(rtfData, forType: .string)
-        //pb.setData(rtfData, forPasteboardType: kUTTypeRTF as String)
-    }
-    catch {
-        print("error creating RTF from Attributed String")
-    }
-}
+//public func copyAttributedStringToPB(attribString: NSAttributedString) {
+//    
+//    do {
+//        let documentAttributes = [NSAttributedString.DocumentAttributeKey.documentType: NSAttributedString.DocumentType.rtf]
+//        let rtfData = try attribString.data(from: NSMakeRange(0, attribString.length), documentAttributes: documentAttributes)
+//        let pb = NSPasteboard.general
+//        pb.setData(rtfData, forType: .string)
+//        //pb.setData(rtfData, forPasteboardType: kUTTypeRTF as String)
+//    }
+//    catch {
+//        print("error creating RTF from Attributed String")
+//    }
+//}
 
 
 
 public func darkModeCheck() -> Bool {
-    print("checking mode")
     if #available(OSX 10.14, *) {
         let appearance = NSApp.effectiveAppearance
         if appearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua {
@@ -278,15 +267,14 @@ public func darkModeCheck() -> Bool {
 }
 
 
-public func checkAllAttributesWithinRange(range: NSRange?, text: NSAttributedString) {
-    guard let range = range else { return }
-    text.enumerateAttributes(in: range, options: []) { (attributes, subrange, stop) in
-        if let color = attributes[.foregroundColor] as? NSColor {
-            print(color)
-            
-        }
-    }
-}
+//public func checkAllAttributesWithinRange(range: NSRange?, text: NSAttributedString) {
+//    guard let range = range else { return }
+//    text.enumerateAttributes(in: range, options: []) { (attributes, subrange, stop) in
+//        if let color = attributes[.foregroundColor] as? NSColor {
+//            
+//        }
+//    }
+//}
 
 
 
@@ -296,7 +284,6 @@ class CustomTextView: NSTextView {
     override func becomeFirstResponder() -> Bool {
         let becomingFirstResponder = super.becomeFirstResponder()
         if becomingFirstResponder {
-            print("CustomTextView is now the first responder.")
         }
         return becomingFirstResponder
     }
@@ -304,7 +291,6 @@ class CustomTextView: NSTextView {
     override func resignFirstResponder() -> Bool {
         let resigningFirstResponder = super.resignFirstResponder()
         if resigningFirstResponder {
-            print("CustomTextView has resigned as the first responder.")
         }
         return resigningFirstResponder
     }

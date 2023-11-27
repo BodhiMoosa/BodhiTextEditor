@@ -158,15 +158,6 @@ public struct LinkPopUpView: View {
             
             index = effectiveRange.location + effectiveRange.length
         }
-        
-        if uniqueLinks.count > 1 {
-            print("There are multiple distinct links within the range.")
-        } else if uniqueLinks.count == 1 {
-            print("There is only one distinct link within the range.")
-        } else {
-            print("There are no links within the range.")
-        }
-        
         return Array(uniqueLinks)
     }
 
