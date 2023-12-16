@@ -80,6 +80,7 @@ public struct BodhiTextEditor: View {
                     }
                     .buttonStyle(.plain)
                     TextSizeView(attribText: $attribText, range: $range)
+                    FontChangeView(attribText: $attribText, range: $range)
                     ColorPicker("Font Color", selection: $bgColor)
                 }
                 .frame(width: width)
