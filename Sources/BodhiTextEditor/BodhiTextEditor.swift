@@ -20,6 +20,7 @@ public struct BodhiTextEditor: View {
     @State private var bgColor                      = Color(.sRGB, red: 1, green: 1, blue: 1)
     @Binding var isEditing                          : Bool
     @State private var isLinkPopUpPresented: Bool   = false
+    @State var selectedFont                         : String
 
     public init(height: CGFloat,
                 width: CGFloat,
@@ -38,6 +39,7 @@ public struct BodhiTextEditor: View {
         self._bgColor               = State(initialValue: bgColor) // Use _propertyName for State properties
         self._isLinkPopUpPresented  = State(initialValue: isLinkPopUpPresented) // Use _propertyName for State properties
         self._isEditing             = isEditing
+        self._selectedFont          = State(initialValue: "Helvetica")
     }
 
     
@@ -80,8 +82,11 @@ public struct BodhiTextEditor: View {
                     }
                     .buttonStyle(.plain)
                     TextSizeView(attribText: $attribText, range: $range)
-                    FontChangeView(attribText: $attribText, range: $range)
                     ColorPicker("Font Color", selection: $bgColor)
+                }
+                .frame(width: width)
+                HStack {
+                    FontChangeView(attribText: $attribText, range: $range, selectedFont: $selectedFont)
                 }
                 .frame(width: width)
             }

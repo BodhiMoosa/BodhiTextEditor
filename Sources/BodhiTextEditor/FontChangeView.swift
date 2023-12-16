@@ -11,7 +11,7 @@ public struct FontChangeView: View {
     @Binding var attribText         : NSAttributedString
     @Binding var range              : NSRange?
     let fontNames = NSFontManager.shared.availableFontFamilies
-    @State var selectedFont: String = ""
+    @Binding var selectedFont: String 
     public var body: some View {
 
             VStack {
