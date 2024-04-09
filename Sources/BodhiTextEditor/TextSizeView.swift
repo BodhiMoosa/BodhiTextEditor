@@ -12,7 +12,7 @@ public struct TextSizeView: View {
     @Binding var range              : NSRange?
     @State var increment : CGFloat  = 12
     @State var test: Int            = 34
-    let values: [CGFloat]           = Array(stride(from: 0.0, through: 72.0, by: 2.0))
+    let values: [CGFloat]           = Array(stride(from: 0.0, through: 72.0, by: 1.0))
     public var body: some View {
 
             VStack {
@@ -70,7 +70,7 @@ public struct TextSizeView: View {
         }
         // Get the font attribute at the caret position.
         let attributes = attributedText.attributes(at: caretPosition - 1, effectiveRange: nil)
-        if let font = attributes[.font] as? NSFont { // Use NSFont for macOS instead of UIFont
+        if let font = attributes[.font] as? NSFont {
             return font.pointSize
         }
         return nil
