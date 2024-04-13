@@ -93,7 +93,14 @@ public struct TextSizeView: View {
 struct FontSizeSelectionView: View {
     @Binding var number: Double
     var body: some View {
-        TextField("Font Size", value: $number, format: .number)
+        VStack {
+            HStack {
+                Text("Font")
+                Text("Size")
+            }
+            TextField("", value: $number, format: .number)
+        }
+        
     }
 }
 
