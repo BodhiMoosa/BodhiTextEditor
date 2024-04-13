@@ -11,23 +11,32 @@ public struct TextSizeView: View {
     @Binding var attribText         : NSAttributedString
     @Binding var range              : NSRange?
     @State var increment : CGFloat  = 12
+    @State var doubleIncrement : Double = 12
     @State var test: Int            = 34
     let values: [CGFloat]           = Array(stride(from: 0.0, through: 72.0, by: 1.0))
     public var body: some View {
 
             VStack {
-                Picker("Text Size", selection: $increment) {
-                    ForEach(values, id: \.self) { value in
-                        Text("\(Int(value))").tag(value)
+//                Picker("Text Size", selection: $increment) {
+//                    ForEach(values, id: \.self) { value in
+//                        Text("\(Int(value))").tag(value)
+//                    }
+//                }
+//                .onChange(of: increment) { newIncrement in
+//                    attribText = changeFontSizeWithNumber(of: attribText, to: newIncrement, range: range)
+//                }
+                FontSizeSelectionView(number: $doubleIncrement)
+                    .onChange(of: doubleIncrement) { newIncrement in
+                        let convertedIncrement = CGFloat(newIncrement)
+                        attribText = changeFontSizeWithNumber(of: attribText, to: convertedIncrement, range: range)
+                            
+                        
                     }
-                }
-                .onChange(of: increment) { newIncrement in
-                    attribText = changeFontSizeWithNumber(of: attribText, to: newIncrement, range: range)
-                }
             }
             .onChange(of: range) { newRange in
                 guard let range = range else { return }
-                increment = returnCurrentFontSize(attribText: attribText, range: range)
+                //increment = returnCurrentFontSize(attribText: attribText, range: range)
+                doubleIncrement = Double(returnCurrentFontSize(attribText: attribText, range: range))
             }
             
 
@@ -79,5 +88,13 @@ public struct TextSizeView: View {
 
 
 
+
+
+struct FontSizeSelectionView: View {
+    @Binding var number: Double
+    var body: some View {
+        TextField("Font Size", value: $number, format: .number)
+    }
+}
 
 
